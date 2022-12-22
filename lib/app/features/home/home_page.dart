@@ -7,6 +7,8 @@ import 'package:mobx/mobx.dart';
 import 'package:reddit_modular/app/core/core.dart';
 import 'package:reddit_modular/app/features/home/home_controller.dart';
 import 'package:reddit_modular/app/features/home/widget/post_list_item_widget.dart';
+import 'package:reddit_modular/app/features/pagination/pagination_controller.dart';
+import 'package:reddit_modular/app/features/pagination/pagination_widget.dart';
 import 'package:reddit_modular/app/shared/widgets/input_widget.dart';
 
 import '../../shared/widgets/filter_list_item_widget.dart';
@@ -20,12 +22,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   TextEditingController searchController = TextEditingController();
+  PaginationController? _paginationController;
+
   @override
   void initState() {
     super.initState();
 
+    _paginationController = Modular.get<PaginationController>();
     controller.searchTerm(
-      controller.filters.elementAt(2).label,
+      controller.filters.elementAt(0).label,
     );
   }
 
@@ -134,34 +139,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * .7,
-                            child: Observer(
-                              builder: (_) => ListView.builder(
-                                itemCount: controller.posts.length,
-                                itemBuilder: (context, index) =>
-                                    PostListItemWidget(
-                                  post: controller.posts.elementAt(index),
-                                ),
-                                // Container(
-                                //   margin:
-                                //       const EdgeInsets.symmetric(vertical: 8),
-                                //   padding: const EdgeInsets.symmetric(
-                                //     horizontal: 16,
-                                //     vertical: 8,
-                                //   ),
-                                //   decoration: BoxDecoration(
-                                //     color: AppColors.white,
-                                //     borderRadius: BorderRadius.circular(4),
-                                //   ),
-                                //   child: Text(
-                                //     'Index: $index',
-                                //     style: AppTextStyles.h6_bold,
-                                //   ),
-                                // ),
-                              ),
-                            ),
-                          ),
+                          PaginationWidget(),
                         ],
                       ),
               ],
