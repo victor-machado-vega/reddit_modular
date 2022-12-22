@@ -74,6 +74,8 @@ abstract class _HomeBase with Store {
         (post) {
           posts.add(
             Post(
+              id: post['data']['id'],
+              subreddit: post['data']['subreddit'],
               author: post['data']['author'],
               title: post['data']['title'],
               imagePath:

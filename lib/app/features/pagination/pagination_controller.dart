@@ -83,10 +83,10 @@ abstract class _PaginationBase with Store {
 
     if (_backupList.length <= 10) {
       _limit = _backupList.length;
-      // lastItemIndex += _limit;
+      lastItemIndex += _limit;
       _isLastPage = true;
     } else {
-      // lastItemIndex += lastItemIndex + 10;
+      lastItemIndex += 10;
       _limit = 10;
     }
 
@@ -102,16 +102,6 @@ abstract class _PaginationBase with Store {
         isLoading = !isLoading,
         // _homeController.isLoading = false,
       },
-    );
-  }
-
-  _executeBetween(Function doIt) async {
-    isLoading = !isLoading;
-
-    await doIt();
-
-    await Future.delayed(const Duration(seconds: 1)).then(
-      (_) => isLoading = !isLoading,
     );
   }
 }

@@ -1,5 +1,6 @@
 class Post {
-  // final String subreddit;
+  final String subreddit;
+  final String id;
   final String author;
   final String title;
   final String imagePath;
@@ -8,6 +9,8 @@ class Post {
   final List<dynamic>? answers;
 
   Post({
+    required this.subreddit,
+    required this.id,
     required this.author,
     required this.title,
     required this.imagePath,
