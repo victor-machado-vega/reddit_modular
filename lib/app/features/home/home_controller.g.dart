@@ -91,7 +91,7 @@ mixin _$HomeController on _HomeBase, Store {
       AsyncAction('_HomeBase.searchTerm', context: context);
 
   @override
-  Future<void> searchTerm(String term) {
+  Future<dynamic> searchTerm(String term) {
     return _$searchTermAsyncAction.run(() => super.searchTerm(term));
   }
 

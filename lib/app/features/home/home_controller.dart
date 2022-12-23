@@ -16,6 +16,10 @@ part 'home_controller.g.dart';
 class HomeController = _HomeBase with _$HomeController;
 
 abstract class _HomeBase with Store {
+  final RedditService service;
+
+  _HomeBase(this.service);
+
   @observable
   bool isLoading = false, reverseList = false;
 
@@ -51,7 +55,7 @@ abstract class _HomeBase with Store {
   ];
 
   @action
-  Future<void> searchTerm(String term) async {
+  Future searchTerm(String term) async {
     try {
       isLoading = true;
       // Removendo textos caso existam
@@ -64,12 +68,12 @@ abstract class _HomeBase with Store {
       if (term.contains(" ")) {
         term.replaceAll(" ", "");
       }
-      var responseData = await RedditService().getContent(term);
+      var responseData = await service.getContent(term);
       _response.clear();
       posts.clear();
 
       _response.addAll(responseData['data']['children']);
-
+      print(responseData);
       _response.forEach(
         (post) {
           posts.add(
@@ -109,6 +113,9 @@ abstract class _HomeBase with Store {
             ),
           );
         }
+
+        print(posts);
+        return posts;
       } else {
         ToastUtil.showToast(
           "Nenhum resultado encontrado! verifique se digitou corretamente",
@@ -118,9 +125,11 @@ abstract class _HomeBase with Store {
       isLoading = false;
     } catch (e) {
       print(e);
+      return [];
       isLoading = false;
       // return null;
     } finally {
+      return posts;
       isLoading = false;
     }
   }

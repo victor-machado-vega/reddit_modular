@@ -24,10 +24,12 @@ abstract class _PaginationBase with Store {
   int firstItemIndex = 0, lastItemIndex = 10;
 
   @action
-  Future<void> loadInitialData() async {
+  bool loadInitialData() {
     _backupList.clear();
     _backupList.addAll(_homeController.posts);
     posts.addAll(_backupList.take(_limit));
+
+    return _backupList.isNotEmpty;
   }
 
   @action

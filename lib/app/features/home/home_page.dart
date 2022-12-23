@@ -30,7 +30,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
     _paginationController = Modular.get<PaginationController>();
     controller.searchTerm(
-      controller.filters.elementAt(0).label,
+      controller.filters.elementAt(1).label,
     );
   }
 

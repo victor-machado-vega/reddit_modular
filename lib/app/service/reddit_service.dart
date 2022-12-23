@@ -5,10 +5,14 @@ import 'package:dio/dio.dart';
  * as informações inseridas pelo usuário como parametro
  */
 class RedditService {
+  final Dio dio;
+
+  RedditService(this.dio);
+
   getContent(String subreddit) async {
     try {
       var response =
-          await Dio().get('https://www.reddit.com/r/${subreddit}/top.json?');
+          await dio.get('https://www.reddit.com/r/${subreddit}/top.json?');
       print(response.statusCode);
       return response.data;
       // print(response);
@@ -20,7 +24,7 @@ class RedditService {
 
   getComments(String subreddit, String id) async {
     try {
-      var response = await Dio()
+      var response = await dio
           .get('https://www.reddit.com/r/${subreddit}/comments/${id}.json?');
       print(response.statusCode);
       return response.data;

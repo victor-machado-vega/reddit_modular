@@ -153,14 +153,6 @@ mixin _$PaginationController on _PaginationBase, Store {
     });
   }
 
-  late final _$loadInitialDataAsyncAction =
-      AsyncAction('_PaginationBase.loadInitialData', context: context);
-
-  @override
-  Future<void> loadInitialData() {
-    return _$loadInitialDataAsyncAction.run(() => super.loadInitialData());
-  }
-
   late final _$loadListDataAsyncAction =
       AsyncAction('_PaginationBase.loadListData', context: context);
 
@@ -183,6 +175,20 @@ mixin _$PaginationController on _PaginationBase, Store {
   @override
   Future<void> onNextPage() {
     return _$onNextPageAsyncAction.run(() => super.onNextPage());
+  }
+
+  late final _$_PaginationBaseActionController =
+      ActionController(name: '_PaginationBase', context: context);
+
+  @override
+  bool loadInitialData() {
+    final _$actionInfo = _$_PaginationBaseActionController.startAction(
+        name: '_PaginationBase.loadInitialData');
+    try {
+      return super.loadInitialData();
+    } finally {
+      _$_PaginationBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

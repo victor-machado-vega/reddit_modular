@@ -23,7 +23,8 @@ class PostListItemWidget extends StatelessWidget {
 
     // Listando Comentarios
     void showComments() async {
-      var response = await RedditService().getComments(post.subreddit, post.id);
+      var service = Modular.get<RedditService>();
+      var response = await service.getComments(post.subreddit, post.id);
       List temp = [];
       temp.addAll(response);
 
